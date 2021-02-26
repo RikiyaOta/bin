@@ -1,0 +1,44 @@
+#!/bin/bash
+
+# $1 = Search String (Replaced String)        [required]
+# $2 = Replacement String                     [required]
+# $3 = Root Directory (Default: $CURRENT_DIR) [optional]
+
+set -e
+
+if [ -z "$1" ] || [ "$1" = "" ]; then
+  echo "Pass Search String as the First Argument."
+  exit 1
+fi
+
+SEARCH_STRING=$1
+
+if [ -z "$2" ] || [ "$2" = "" ]; then
+  echo "Pass Replacement String as the Second Argument."
+  exit 1
+fi
+
+REPLACEMENT_TEXT=$2
+
+if [ ! -z "$3" ] || [ "$3" = "" ]; then
+  CURRENT_DIR=$(pwd)
+  ROOT_DIRECTORY=$CURRENT_DIR
+else
+  ROOT_DIRECTORY=$3
+fi
+
+echo "SEARCH_STRING=$SEARCH_STRING"
+echo "REPLACEMENT_TEXT=$REPLACEMENT_TEXT"
+echo "ROOT_DIRECTORY=$ROOT_DIRECTORY"
+
+TARGET_FILE_PATHS=$(rg "$SEARCH_STRING" --files-with-matches "$ROOT_DIRECTORY")
+
+echo "Replacing ..."
+for TARGET_FILE_PATH in $TARGET_FILE_PATHS
+do
+  echo "FILE=$TARGET_FILE_PATH ..."
+  sed -I "" "s/$SEARCH_STRING/$REPLACEMENT_TEXT/" $TARGET_FILE_PATH
+done
+echo "Finish!!"
+
+exit 0

@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [ "$1" = '' ]; then
+  read TEXT
+else
+  TEXT="$1"
+fi
+
+echo ${#TEXT}

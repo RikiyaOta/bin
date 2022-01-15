@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -e
+
+if [ "$1" = '' ]; then
+  read TEXT
+else
+  TEXT="$1"
+fi
+
+#echo $TEXT | sed -r 's/([A-Z])/_\L\1/g' | sed 's/^_//'
+echo "$TEXT" | perl -pe 's/([a-z0-9])([A-Z])/$1_\L$2/g'

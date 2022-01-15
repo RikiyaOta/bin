@@ -1,0 +1,11 @@
+#!/bin/bash
+
+if [ "$1" = '' ]; then
+  read TEXT
+else
+  TEXT="$1"
+fi
+
+TEXT=$(echo $TEXT | sed 's/"/\\"/g')
+
+python3 -c "import urllib.parse;print(urllib.parse.unquote(\"${TEXT}\"))"

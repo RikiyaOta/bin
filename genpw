@@ -1,0 +1,36 @@
+#!/bin/bash
+
+set -e
+
+if [ "$1" = "" ]; then
+  echo 'Specify the length of passwords.'
+  exit 1
+fi
+
+if ! [[ "$1" =~ ^[1-9][0-9]*$ ]]; then
+  echo 'You should specify a positive integer as the first argument.'
+  echo 'This first argument is the length of passwords.'
+  exit 1
+fi
+
+if [ "$2" != "" ] && ! [[ "$2" =~ ^[1-9][0-9]*$ ]]; then
+  echo 'You should specify a positive integer as the second argument.'
+  echo 'This second argument is the number of passwords. This is optional, default is 1.'
+  exit 1
+fi
+
+LENGTH=$1
+
+if [ "$2" = "" ]; then
+  N=1
+else
+  N=$2
+fi
+
+for i in $(seq 1 $N);
+do
+  cat /dev/urandom | env LC_CTYPE=C tr -dc 'a-zA-Z0-9-_' | head -c $LENGTH
+  echo
+done
+
+exit 0

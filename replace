@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 set -e
 
@@ -15,6 +15,6 @@ fi
 BEFORE_WORD="$1"
 AFTER_WORD="$2"
 
-ag -l "$BEFORE_WORD" | tee /dev/stderr | xargs sed -i '' "s/${BEFORE_WORD}/${AFTER_WORD}/g"
+ag -l "$BEFORE_WORD" | tee /dev/stderr | xargs sed -i'' "s/${BEFORE_WORD}/${AFTER_WORD}/g"
 
 exit 0

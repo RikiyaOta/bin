@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+set -e
+
+if [ "$1" = '' ]; then
+  read TEXT
+else
+  TEXT="$1"
+fi
+
+echo "$TEXT" | sed -r 's/.*/\L\0/g; s/_([a-z0-9])/\U\1/g;'
